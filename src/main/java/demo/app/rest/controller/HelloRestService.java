@@ -28,11 +28,11 @@ public class HelloRestService {
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createStudent(StudentModel sm) throws ClassNotFoundException {
+    @Produces(MediaType.APPLICATION_XML)
+    public Response createStudent(StudentModel sm) throws Exception {
         System.out.println("Creating a new student");
-        //check with get
-        return Response.status(200).entity(StudentMngmt.createMngmt(sm)).type(MediaType.APPLICATION_JSON).build();
+        System.out.println("rest" + sm);
+        return Response.status(200).entity(StudentMngmt.createMngmt(sm)).type(MediaType.APPLICATION_XML).build();
     }
 
 

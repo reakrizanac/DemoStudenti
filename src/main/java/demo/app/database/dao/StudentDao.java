@@ -45,23 +45,25 @@ public class StudentDao {
         String query = "INSERT INTO Studenti VALUES (?, ?, ?, ?, ?, ?)";
         //novi request njega return
 
-
         try {
             Connection connection = SqlConnection.getConnection();
             PreparedStatement st = connection.prepareStatement(query);
-
 
             st.setString(2, std.getName());
             st.setString(3, std.getOib());
             st.setString(4, std.getMobilePhone());
             st.setString(5, std.getEmail());
             st.setInt(6, std.getMentorId());
+
             st.executeUpdate();
+
+            System.out.println("Test 2");
 
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
