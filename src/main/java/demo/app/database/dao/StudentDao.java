@@ -34,7 +34,7 @@ public class StudentDao {
     public static ArrayList<StudentModel> getStudents() throws Exception{
 
         ArrayList<StudentModel> allStudents = new ArrayList<>();
-        String query = "SELECT * FROM Student";
+        String query = "SELECT * FROM Studenti";
 
         try {
             Connection connection = SqlConnection.getConnection();
@@ -64,7 +64,7 @@ public class StudentDao {
     //Creating a new student
     public static Object create(StudentModel std) throws ClassNotFoundException {
 
-        String query = "INSERT INTO student VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Studenti VALUES (?, ?, ?, ?, ?, ?)";
         //novi request njega return
 
 
@@ -115,7 +115,7 @@ public class StudentDao {
     public static StudentModel deleteStudent(int id) throws ClassNotFoundException, SQLException {
 
         StudentModel sm = new StudentModel();
-        String sql = "delete from student where id=" + id;
+        String sql = "delete from Studenti where id=" + id;
 
         try {
             Connection connection = SqlConnection.getConnection();

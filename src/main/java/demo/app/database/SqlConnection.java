@@ -13,7 +13,7 @@ public class SqlConnection {
         Class.forName("org.sqlite.JDBC");
         try {
             if (connection == null){
-                String url = "jdbc:sqlite:D:\\Rea\\Desktop\\Ericsson\\Database\\demo.db";
+                String url = "jdbc:sqlite:D:\\Rea\\Desktop\\Ericsson\\Database\\DemoStudenti.db";
                 connection = DriverManager.getConnection(url);
                 System.out.println("Connection to SQLite has been established.");
             }
