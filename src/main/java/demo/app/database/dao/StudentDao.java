@@ -73,7 +73,6 @@ public class StudentDao {
             PreparedStatement st = connection.prepareStatement(query);
 
 
-            st.setInt(1, std.getId());
             st.setString(2, std.getName());
             st.setString(3, std.getOib());
             st.setString(4, std.getMobilePhone());
@@ -122,17 +121,6 @@ public class StudentDao {
             Statement statement = connection.createStatement();
             //umjesto query ide statement
             ResultSet resultSet = statement.executeQuery(sql);
-
-            //if nije potreban
-            if (resultSet.next()){
-
-                sm.setId(resultSet.getInt(1));
-                sm.setName(resultSet.getString(2));
-                sm.setOib(resultSet.getString(3));
-                sm.setMobilePhone(resultSet.getString(4));
-                sm.setEmail(resultSet.getString(5));
-                sm.setMentorId(resultSet.getInt(6));
-            }
 
         }
         catch (SQLException e) {
