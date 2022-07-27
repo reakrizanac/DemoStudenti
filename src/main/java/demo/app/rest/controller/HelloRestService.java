@@ -1,5 +1,6 @@
 package demo.app.rest.controller;
 
+import demo.app.menagement.StudentMngmt;
 import demo.app.rest.model.StudentModel;
 import demo.app.database.dao.StudentDao;
 
@@ -31,7 +32,7 @@ public class HelloRestService {
     public Response createStudent(StudentModel sm) throws ClassNotFoundException {
         System.out.println("Creating a new student");
         //check with get
-        return Response.status(200).entity(StudentDao.create(sm)).type(MediaType.APPLICATION_JSON).build();
+        return Response.status(200).entity(StudentMngmt.createMngmt(sm)).type(MediaType.APPLICATION_JSON).build();
     }
 
 

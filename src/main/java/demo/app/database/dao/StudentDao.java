@@ -8,28 +8,6 @@ import java.util.ArrayList;
 
 public class StudentDao {
 
-/*
-
-    //Getting al the student second way
-    //Test trial
-    public static ArrayList<StudentModel> getStudents() throws Exception{
-
-        ArrayList<StudentModel> allStudents = new ArrayList<>();
-        Connection connection = SqlConnection.getConnection();
-
-        String query = "SELECT * FROM Student";
-        Statement st = connection.createStatement();
-        ResultSet result = st.executeQuery(query);
-
-        while (result.next()){
-            StudentModel tmp = new StudentModel(result.getInt("id"), result.getString("name"), result.getString("oib"), result.getString("mobilePhone"), result.getString("email"), result.getInt("mentorId"));
-            allStudents.add(tmp);
-        }
-        return allStudents;
-    }
-
- */
-
     //List of students
     public static ArrayList<StudentModel> getStudents() throws Exception{
 
@@ -87,7 +65,52 @@ public class StudentDao {
         return null;
     }
 
-/*
+    //deleting a student by id
+    public static StudentModel deleteStudent(int id) throws ClassNotFoundException, SQLException {
+
+        StudentModel sm = new StudentModel();
+        String sql = "delete from Studenti where id=" + id;
+
+        try {
+            Connection connection = SqlConnection.getConnection();
+            Statement statement = connection.createStatement();
+            //umjesto query ide statement
+            ResultSet resultSet = statement.executeQuery(sql);
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+
+
+
+    /*
+
+    //Getting al the student second way
+    //Test trial
+    public static ArrayList<StudentModel> getStudents() throws Exception{
+
+        ArrayList<StudentModel> allStudents = new ArrayList<>();
+        Connection connection = SqlConnection.getConnection();
+
+        String query = "SELECT * FROM Student";
+        Statement st = connection.createStatement();
+        ResultSet result = st.executeQuery(query);
+
+        while (result.next()){
+            StudentModel tmp = new StudentModel(result.getInt("id"), result.getString("name"), result.getString("oib"), result.getString("mobilePhone"), result.getString("email"), result.getInt("mentorId"));
+            allStudents.add(tmp);
+        }
+        return allStudents;
+    }
+
+ */
+
+    /*
     //Test trial
     //creating a new student second way
 
@@ -109,27 +132,6 @@ public class StudentDao {
     }
 
  */
-
-    //deleting a student by id
-    public static StudentModel deleteStudent(int id) throws ClassNotFoundException, SQLException {
-
-        StudentModel sm = new StudentModel();
-        String sql = "delete from Studenti where id=" + id;
-
-        try {
-            Connection connection = SqlConnection.getConnection();
-            Statement statement = connection.createStatement();
-            //umjesto query ide statement
-            ResultSet resultSet = statement.executeQuery(sql);
-
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }
-
 
 }
 
