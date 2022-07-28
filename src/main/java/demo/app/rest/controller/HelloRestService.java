@@ -22,6 +22,12 @@ public class HelloRestService {
         List<StudentModel> studentList = StudentDao.getStudents();
         System.out.println("List of all students");
         return Response.status(200).entity(studentList).type(MediaType.APPLICATION_JSON).build();
+
+        /*
+        StudentDao studentList = StudentMngmt.getStudentsMngmt();
+        System.out.println("List of all students");
+        return Response.status(200).entity(studentList).type(MediaType.APPLICATION_JSON).build();
+         */
     }
 
     //creating new student
@@ -32,7 +38,9 @@ public class HelloRestService {
     public Response createStudent(StudentModel sm) throws Exception {
         System.out.println("Creating a new student");
         System.out.println("rest" + sm);
-        return Response.status(200).entity(StudentMngmt.createMngmt(sm)).type(MediaType.APPLICATION_XML).build();
+
+        return Response.status(200).entity(StudentMngmt.createMngmt(sm)).type(MediaType.APPLICATION_JSON).build();
+        //return Response.status(200).entity(StudentMngmt.createMngmt(sm)).type(MediaType.APPLICATION_JSON).build();
     }
 
 
@@ -43,7 +51,9 @@ public class HelloRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteStudent (@PathParam("id") int id) throws SQLException, ClassNotFoundException {
         System.out.println("Deleting student");
+
         return Response.status(200).entity(StudentDao.deleteStudent(id)).type(MediaType.APPLICATION_JSON).build();
+        //return Response.status(200).entity(StudentMngmt.deleteMngmt(id)).type(MediaType.APPLICATION_JSON).build();
     }
 
 
