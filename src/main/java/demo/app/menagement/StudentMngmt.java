@@ -4,6 +4,8 @@ import demo.app.database.dao.StudentDao;
 import demo.app.rest.controller.HelloRestService;
 import demo.app.rest.model.StudentModel;
 
+import java.util.ArrayList;
+
 public class StudentMngmt {
 
     //list of students
@@ -14,14 +16,13 @@ public class StudentMngmt {
     }
 
     //create a student
-    public static StudentDao createMngmt(StudentModel std) throws Exception {
+    public static ArrayList<StudentModel> createMngmt(StudentModel std) throws Exception {
         StudentDao studentDaoCreate = new StudentDao();
         studentDaoCreate.create(std);
 
-        //HelloRestService helloRestService = new HelloRestService();
-        //helloRestService.getStudents();
+        ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
 
-        return studentDaoCreate;
+        return responseMngmt;
     }
 
     //delete by id

@@ -40,7 +40,7 @@ public class StudentDao {
     }
 
     //Creating a new student
-    public static Object create(StudentModel std) throws ClassNotFoundException {
+    public static void create(StudentModel std) throws ClassNotFoundException {
 
         String query = "INSERT INTO Studenti VALUES (?, ?, ?, ?, ?, ?)";
         //novi request njega return
@@ -63,8 +63,9 @@ public class StudentDao {
         catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return null;
+        //novi queri
+        //return std;
+        //return null;
     }
 
     //deleting a student by id
