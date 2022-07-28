@@ -1,7 +1,6 @@
 package demo.app.menagement;
 
 import demo.app.database.dao.StudentDao;
-import demo.app.rest.controller.HelloRestService;
 import demo.app.rest.model.StudentModel;
 
 import java.util.ArrayList;
@@ -9,10 +8,10 @@ import java.util.ArrayList;
 public class StudentMngmt {
 
     //list of students
-    public static StudentDao getStudents(){
-        StudentDao studentDaoList = new StudentDao();
+    public static ArrayList<StudentModel> getStudents() throws Exception {
 
-        return studentDaoList;
+        ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
+        return responseMngmt;
     }
 
     //create a student
@@ -26,14 +25,14 @@ public class StudentMngmt {
     }
 
     //delete by id
-    public static StudentDao deleteMngmt(StudentModel std) throws Exception {
+    public static ArrayList<StudentModel> deleteMngmt(int id) throws Exception {
+
         StudentDao studentDaoDelete = new StudentDao();
-        studentDaoDelete.create(std);
+        studentDaoDelete.deleteStudent(id);
 
-        //HelloRestService helloRestService = new HelloRestService();
-        //helloRestService.getStudents();
+        ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
 
-        return studentDaoDelete;
+        return responseMngmt;
     }
 
 }

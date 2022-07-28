@@ -1,6 +1,7 @@
 package demo.app.database.dao;
 
 import demo.app.database.SqlConnection;
+import demo.app.menagement.StudentMngmt;
 import demo.app.rest.model.StudentModel;
 
 import java.sql.*;
@@ -57,7 +58,6 @@ public class StudentDao {
 
             st.executeUpdate();
 
-            System.out.println("Test 2");
 
         }
         catch (SQLException e) {
@@ -69,7 +69,7 @@ public class StudentDao {
     }
 
     //deleting a student by id
-    public static StudentModel deleteStudent(int id) throws ClassNotFoundException, SQLException {
+    public static void deleteStudent(int id) throws ClassNotFoundException, SQLException {
 
         StudentModel sm = new StudentModel();
         String sql = "delete from Studenti where id=" + id;
@@ -84,8 +84,6 @@ public class StudentDao {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
-
     }
 
 

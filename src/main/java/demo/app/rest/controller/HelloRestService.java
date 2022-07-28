@@ -48,11 +48,10 @@ public class HelloRestService {
     @Path("/delete/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteStudent (@PathParam("id") int id) throws SQLException, ClassNotFoundException {
-        System.out.println("Deleting student");
+    public Response deleteStudent (@PathParam("id") int id) throws Exception {
 
-        return Response.status(200).entity(StudentDao.deleteStudent(id)).type(MediaType.APPLICATION_JSON).build();
-        //return Response.status(200).entity(StudentMngmt.deleteMngmt(id)).type(MediaType.APPLICATION_JSON).build();
+        System.out.println("Deleting student");
+        return Response.status(200).entity(StudentMngmt.deleteMngmt(id)).type(MediaType.APPLICATION_JSON).build();
     }
 
 
