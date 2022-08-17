@@ -1,13 +1,12 @@
 package demo.app.database.dao;
 
 import demo.app.database.SqlConnection;
-import demo.app.menagement.StudentMngmt;
 import demo.app.rest.model.StudentModel;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class StudentDao {
+public class StudentDao extends StudentModel {
 
     //List of students
     public static ArrayList<StudentModel> getStudents() throws Exception{
@@ -44,11 +43,13 @@ public class StudentDao {
     public static void create(StudentModel std) throws ClassNotFoundException {
 
         String query = "INSERT INTO Studenti VALUES (?, ?, ?, ?, ?, ?)";
+
         //novi request njega return
 
         try {
             Connection connection = SqlConnection.getConnection();
             PreparedStatement st = connection.prepareStatement(query);
+
 
             st.setString(2, std.getName());
             st.setString(3, std.getOib());
@@ -58,11 +59,12 @@ public class StudentDao {
 
             st.executeUpdate();
 
-
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+
+
         //novi queri
         //return std;
         //return null;
@@ -86,7 +88,67 @@ public class StudentDao {
         }
     }
 
+    //find a student by id
+    public static StudentModel findStudentId(int id) throws ClassNotFoundException, SQLException {
 
+        System.out.println("find by id");
+
+        StudentModel sm = new StudentModel();
+        String sql = "select * from Studenti where id=" + id;
+
+        try {
+            Connection connection = SqlConnection.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            if (result.next()){
+
+                sm.setId(result.getInt(1));
+                sm.setName(result.getString(2));
+                sm.setOib(result.getString(3));
+                sm.setMobilePhone(result.getString(4));
+                sm.setEmail(result.getString(5));
+                sm.setMentorId(result.getInt(6));
+            }
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("dao: " + sm);
+        return sm;
+    }
+
+    //find a student by oib
+    public static StudentModel findStudentOib(String oib) throws ClassNotFoundException, SQLException {
+
+        System.out.println("find by oib");
+
+        StudentModel sm = new StudentModel();
+        String sql = "select * from Studenti where oib=" + oib;
+
+        try {
+            Connection connection = SqlConnection.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            if (result.next()){
+
+                sm.setId(result.getInt(1));
+                sm.setName(result.getString(2));
+                sm.setOib(result.getString(3));
+                sm.setMobilePhone(result.getString(4));
+                sm.setEmail(result.getString(5));
+                sm.setMentorId(result.getInt(6));
+            }
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("dao oib: " + sm);
+        return sm;
+    }
 
 
     /*

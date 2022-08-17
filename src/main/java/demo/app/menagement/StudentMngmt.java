@@ -8,18 +8,24 @@ import java.util.ArrayList;
 public class StudentMngmt {
 
     //list of students
-    public static ArrayList<StudentModel> getStudents() throws Exception {
+    public static ArrayList<StudentModel> getStudentsMngmt() throws Exception {
 
         ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
         return responseMngmt;
     }
 
     //create a student
-    public static ArrayList<StudentModel> createMngmt(StudentModel std) throws Exception {
+    public static StudentModel createMngmt(StudentModel sm) throws Exception {
         StudentDao studentDaoCreate = new StudentDao();
-        studentDaoCreate.create(std);
+        studentDaoCreate.create(sm);
 
-        ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
+
+        System.out.println("test2");
+        StudentModel responseMngmt = studentDaoCreate.findStudentOib(sm.getOib());
+        System.out.println("mngmt: " + responseMngmt);
+
+
+        //ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
 
         return responseMngmt;
     }
@@ -34,5 +40,28 @@ public class StudentMngmt {
 
         return responseMngmt;
     }
+
+    //find by id
+    public static StudentModel findIdMngmt(int id) throws Exception {
+
+        StudentDao studentDaoFind = new StudentDao();
+        StudentModel responseMngmt = studentDaoFind.findStudentId(id);
+
+        System.out.println("mngmt id: " + responseMngmt);
+
+        return responseMngmt;
+    }
+
+    //find by oib
+    public static StudentModel findOibMngmt(String oib) throws Exception {
+
+        StudentDao studentDaoFind = new StudentDao();
+        StudentModel responseMngmt = studentDaoFind.findStudentOib(oib);
+
+        System.out.println("mngmt oib: " + responseMngmt);
+
+        return responseMngmt;
+    }
+
 
 }
