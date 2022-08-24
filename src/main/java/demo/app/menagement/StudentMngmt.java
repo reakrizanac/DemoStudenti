@@ -16,6 +16,11 @@ public class StudentMngmt {
 
     //create a student
     public static StudentModel createMngmt(StudentModel sm) throws Exception {
+
+        if (sm.getName().length() < 5){
+            System.out.println("kriva duljina");
+        }
+
         StudentDao studentDaoCreate = new StudentDao();
         studentDaoCreate.create(sm);
 
