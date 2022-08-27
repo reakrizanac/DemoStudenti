@@ -1,34 +1,41 @@
 package demo.app.menagement;
 
 import demo.app.database.dao.StudentDao;
+import demo.app.properties.App1;
 import demo.app.rest.model.StudentModel;
 
 import java.util.ArrayList;
 
 public class StudentMngmt {
 
+
     //list of students
     public static ArrayList<StudentModel> getStudentsMngmt() throws Exception {
 
+        App1 app = new App1();
+        app.getPropValues();
+
         ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
         return responseMngmt;
+
+
     }
 
     //create a student
     public static StudentModel createMngmt(StudentModel sm) throws Exception {
 
-        if (sm.getName().length() < 5){
+        App1 app = new App1();
+        app.getPropValues();
+        System.out.println(Integer.valueOf(app.nameProp));
+
+        if (sm.getName().length() < Integer.valueOf(app.nameProp)){
             System.out.println("kriva duljina");
         }
 
         StudentDao studentDaoCreate = new StudentDao();
         studentDaoCreate.create(sm);
 
-
-        System.out.println("test2");
         StudentModel responseMngmt = studentDaoCreate.findStudentOib(sm.getOib());
-        System.out.println("mngmt: " + responseMngmt);
-
 
         //ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
 

@@ -31,7 +31,6 @@ public class HelloRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createStudent(StudentModel sm) throws Exception {
         System.out.println("Creating a new student");
-        System.out.println("rest: " + sm);
 
         return Response.status(200).entity(StudentMngmt.createMngmt(sm)).type(MediaType.APPLICATION_JSON).build();
     }
