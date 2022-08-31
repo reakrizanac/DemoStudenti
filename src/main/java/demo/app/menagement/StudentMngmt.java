@@ -1,23 +1,26 @@
 package demo.app.menagement;
 
+import demo.app.database.dao.Singleton;
 import demo.app.database.dao.StudentDao;
 import demo.app.properties.App1;
+import demo.app.properties.cfg;
 import demo.app.rest.model.StudentModel;
 
 import java.util.ArrayList;
 
 public class StudentMngmt {
 
+    Singleton app = Singleton.getInstance();
 
     //list of students
     public static ArrayList<StudentModel> getStudentsMngmt() throws Exception {
 
-        App1 app = new App1();
+        cfg app = new cfg();
+        //App1 app = new App1();
         app.getPropValues();
 
         ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
         return responseMngmt;
-
 
     }
 
