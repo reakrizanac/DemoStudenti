@@ -1,8 +1,7 @@
 package demo.app.menagement;
 
-import demo.app.database.dao.Singleton;
+import demo.app.properties.Singleton;
 import demo.app.database.dao.StudentDao;
-import demo.app.properties.App1;
 import demo.app.properties.cfg;
 import demo.app.rest.model.StudentModel;
 
@@ -16,7 +15,6 @@ public class StudentMngmt {
     public static ArrayList<StudentModel> getStudentsMngmt() throws Exception {
 
         cfg app = new cfg();
-        //App1 app = new App1();
         app.getPropValues();
 
         ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
@@ -27,7 +25,7 @@ public class StudentMngmt {
     //create a student
     public static StudentModel createMngmt(StudentModel sm) throws Exception {
 
-        App1 app = new App1();
+        cfg app = new cfg();
         app.getPropValues();
         System.out.println(Integer.valueOf(app.nameProp));
 
