@@ -1,20 +1,19 @@
 package demo.app.menagement;
 
-import demo.app.properties.Singleton;
 import demo.app.database.dao.StudentDao;
-import demo.app.properties.cfg;
+import demo.app.properties.Cfg;
 import demo.app.rest.model.StudentModel;
 
 import java.util.ArrayList;
 
 public class StudentMngmt {
 
-    Singleton app = Singleton.getInstance();
+    Cfg app = Cfg.getInstance();
 
     //list of students
     public static ArrayList<StudentModel> getStudentsMngmt() throws Exception {
 
-        cfg app = new cfg();
+        //Cfg app = new Cfg();
         app.getPropValues();
 
         ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
@@ -25,7 +24,7 @@ public class StudentMngmt {
     //create a student
     public static StudentModel createMngmt(StudentModel sm) throws Exception {
 
-        cfg app = new cfg();
+        //Cfg app = new Cfg();
         app.getPropValues();
         System.out.println(Integer.valueOf(app.nameProp));
 
@@ -46,8 +45,8 @@ public class StudentMngmt {
     //delete by id
     public static ArrayList<StudentModel> deleteMngmt(int id) throws Exception {
 
-        StudentDao studentDaoDelete = new StudentDao();
-        studentDaoDelete.deleteStudent(id);
+        //StudentDao studentDaoDelete = new StudentDao();
+        StudentDao.deleteStudent(id);
 
         ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
 
