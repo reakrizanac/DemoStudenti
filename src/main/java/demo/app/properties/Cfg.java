@@ -7,14 +7,14 @@ import java.util.Properties;
 
 public class Cfg {
 
-    public String nameProp;
-    public String oibProp;
-    public String mobilePhoneProp;
-    public String emailProp;
+    public String nameLenght;
+    public String oibLenght;
+    public String mobilePhoneLenght;
+    public String emailLenght;
     String result = "";
     InputStream inputStream;
 
-    private static Cfg single_instance = null;
+    private static Cfg instance = null;
 
     private Cfg(){}
 
@@ -32,12 +32,12 @@ public class Cfg {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
 
-            nameProp = prop.getProperty("app.student.name.min.length");
-            oibProp = prop.getProperty("app.student.oib.length");
-            mobilePhoneProp = prop.getProperty("app.student.mobilePhone.min.length");
-            emailProp = prop.getProperty("app.student.email.min.length");
+            nameLenght = prop.getProperty("app.student.name.min.length");
+            oibLenght = prop.getProperty("app.student.oib.length");
+            mobilePhoneLenght = prop.getProperty("app.student.mobilePhone.min.length");
+            emailLenght = prop.getProperty("app.student.email.min.length");
 
-            result = "Validations " + nameProp + ", " + oibProp + ", " + mobilePhoneProp + ", " + emailProp;
+            result = "Validations :" + nameLenght + ", " + oibLenght + ", " + mobilePhoneLenght + ", " + emailLenght;
             System.out.println(result);
 
         } catch (FileNotFoundException e) {
@@ -53,15 +53,15 @@ public class Cfg {
 
     public static Cfg getInstance()
     {
-        if (single_instance == null){
+        if (instance == null){
 
             synchronized (Cfg.class){
-                if (single_instance == null){
-                    single_instance = new Cfg();
+                if (instance == null){
+                    instance = new Cfg();
                 }
             }
         }
-        return single_instance;
+        return instance;
     }
 
 

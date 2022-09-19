@@ -48,24 +48,24 @@ public class HelloRestService {
 
     //find a student by id
     @POST
-    @Path("/findid/{id}")
+    @Path("/findbyid/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudentId (@PathParam("id") int id) throws Exception {
 
         System.out.println("Finding student");
-        return Response.status(200).entity(StudentMgmt.findId(id)).type(MediaType.APPLICATION_JSON).build();
+        return Response.status(200).entity(StudentMgmt.getStudentById(id)).type(MediaType.APPLICATION_JSON).build();
     }
 
     //find a student by oib
     @POST
-    @Path("/findoib/{oib}")
+    @Path("/findbyoib/{oib}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudentOib (@PathParam("oib") String oib) throws Exception {
 
         System.out.println("Finding student");
-        return Response.status(200).entity(StudentMgmt.findOib(oib)).type(MediaType.APPLICATION_JSON).build();
+        return Response.status(200).entity(StudentMgmt.getStudentByOib(oib)).type(MediaType.APPLICATION_JSON).build();
     }
 
 

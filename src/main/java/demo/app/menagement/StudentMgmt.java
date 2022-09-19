@@ -8,65 +8,50 @@ import java.util.ArrayList;
 
 public class StudentMgmt {
 
-    static Cfg app = Cfg.getInstance();
+    static Cfg cfg = Cfg.getInstance();
 
     //list of students
     public static ArrayList<StudentModel> getStudents() throws Exception {
 
-        app.getPropValues();
-
         return StudentDao.getStudents();
-
-        /*
-        ArrayList<StudentModel> responseMgmt = StudentDao.getStudents();
-        return responseMgmt;
-         */
 
     }
 
     //create a student
     public static StudentModel createStudent(StudentModel sm) throws Exception {
 
-        app.getPropValues();
-        System.out.println(Integer.valueOf(app.nameProp));
+        /*
+        cfg.getPropValues();
+        System.out.println(Integer.valueOf(cfg.nameLenght));
+         */
 
-        if (sm.getName().length() < Integer.parseInt(app.nameProp)){
+        if (sm.getName().length() < Integer.parseInt(cfg.nameLenght)){
             System.out.println("kriva duljina");
         }
         
-        StudentDao.create(sm);
+        StudentDao.createNewStudent(sm);
 
-        //ArrayList<StudentModel> responseMngmt = StudentDao.getStudents();
-
-        return StudentDao.findStudentOib(sm.getOib());
+        return StudentDao.getStudentByOib(sm.getOib());
     }
 
     //delete by id
-    public static ArrayList<StudentModel> deleteStudent(int id) throws Exception {
+    public static boolean deleteStudent(int id) throws Exception {
 
         StudentDao.deleteStudent(id);
 
-        return StudentDao.getStudents();
+        return true;
     }
 
     //find by id
-    public static StudentModel findId(int id) throws Exception {
+    public static StudentModel getStudentById(int id) throws Exception {
 
-        StudentModel responseMgmt = StudentDao.findStudentId(id);
-
-        System.out.println("mngmt id: " + responseMgmt);
-
-        return responseMgmt;
+        return StudentDao.getStudentById(id);
     }
 
     //find by oib
-    public static StudentModel findOib(String oib) throws Exception {
+    public static StudentModel getStudentByOib(String oib) throws Exception {
 
-        StudentModel responseMngmt = StudentDao.findStudentOib(oib);
-
-        System.out.println("mgmt oib: " + responseMngmt);
-
-        return responseMngmt;
+        return StudentDao.getStudentByOib(oib);
     }
 
 

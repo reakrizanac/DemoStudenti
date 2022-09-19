@@ -40,7 +40,7 @@ public class StudentDao extends StudentModel {
     }
 
     //Creating a new student
-    public static void create(StudentModel std) throws ClassNotFoundException {
+    public static void createNewStudent(StudentModel std) throws ClassNotFoundException {
 
         String query = "INSERT INTO Studenti VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -63,17 +63,11 @@ public class StudentDao extends StudentModel {
         catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-        //novi queri
-        //return std;
-        //return null;
     }
 
     //deleting a student by id
-    public static void deleteStudent(int id) throws ClassNotFoundException, SQLException {
+    public static boolean deleteStudent(int id) throws ClassNotFoundException, SQLException {
 
-        StudentModel sm = new StudentModel();
         String sql = "delete from Studenti where id=" + id;
 
         try {
@@ -86,12 +80,12 @@ public class StudentDao extends StudentModel {
         catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return true;
     }
 
     //find a student by id
-    public static StudentModel findStudentId(int id) throws ClassNotFoundException, SQLException {
-
-        System.out.println("find by id");
+    public static StudentModel getStudentById(int id) throws ClassNotFoundException, SQLException {
 
         StudentModel sm = new StudentModel();
         String sql = "select * from Studenti where id=" + id;
@@ -115,14 +109,14 @@ public class StudentDao extends StudentModel {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("dao: " + sm);
+        //System.out.println("dao: " + sm);
         return sm;
     }
 
     //find a student by oib
-    public static StudentModel findStudentOib(String oib) throws ClassNotFoundException, SQLException {
+    public static StudentModel getStudentByOib(String oib) throws ClassNotFoundException, SQLException {
 
-        System.out.println("find by oib");
+        //System.out.println("find by oib");
 
         StudentModel sm = new StudentModel();
         String sql = "select * from Studenti where oib=" + oib;
@@ -146,7 +140,7 @@ public class StudentDao extends StudentModel {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("dao oib: " + sm);
+        //System.out.println("dao oib: " + sm);
         return sm;
     }
 
