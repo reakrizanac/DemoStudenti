@@ -1,6 +1,8 @@
 package demo.app.menagement;
 
 import demo.app.database.dao.StudentDao;
+import demo.app.exceptions.UniqueOib;
+import demo.app.exceptions.WrongLengthException;
 import demo.app.properties.Cfg;
 import demo.app.rest.model.StudentModel;
 
@@ -20,14 +22,15 @@ public class StudentMgmt {
     //create a student
     public static StudentModel createStudent(StudentModel sm) throws Exception {
 
-        /*
-        cfg.getPropValues();
-        System.out.println(Integer.valueOf(cfg.nameLenght));
-         */
+            if (sm.getName().length() <= Integer.parseInt(cfg.minNameLenght)){
+                throw new WrongLengthException();
+            }
 
-        if (sm.getName().length() < Integer.parseInt(cfg.nameLenght)){
-            System.out.println("kriva duljina");
-        }
+            if (sm.getOib().length() == Integer.parseInt(cfg.oibLenght)){
+                throw new UniqueOib();
+            }
+
+
         
         StudentDao.createNewStudent(sm);
 

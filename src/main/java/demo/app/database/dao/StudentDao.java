@@ -144,52 +144,6 @@ public class StudentDao extends StudentModel {
         return sm;
     }
 
-
-    /*
-
-    //Getting al the student second way
-    //Test trial
-    public static ArrayList<StudentModel> getStudents() throws Exception{
-
-        ArrayList<StudentModel> allStudents = new ArrayList<>();
-        Connection connection = SqlConnection.getConnection();
-
-        String query = "SELECT * FROM Student";
-        Statement st = connection.createStatement();
-        ResultSet result = st.executeQuery(query);
-
-        while (result.next()){
-            StudentModel tmp = new StudentModel(result.getInt("id"), result.getString("name"), result.getString("oib"), result.getString("mobilePhone"), result.getString("email"), result.getInt("mentorId"));
-            allStudents.add(tmp);
-        }
-        return allStudents;
-    }
-
- */
-
-    /*
-    //Test trial
-    //creating a new student second way
-
-    public static void createSec(StudentModel std) throws ClassNotFoundException {
-
-
-        StudentModel newStudent = new StudentModel();
-        String query = "INSERT INTO student VALUES (" + std.getId() + ",'" + std.getName() + "','" + std.getOib() + "','" + std.getMobilePhone() + "','" + std.getEmail() + "','" + std.getMentorId() + "')";
-        System.out.println(query);
-
-        try {
-            Connection connection = SqlConnection.getConnection();
-            PreparedStatement st = connection.prepareStatement(query);
-
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
- */
-
 }
 
 

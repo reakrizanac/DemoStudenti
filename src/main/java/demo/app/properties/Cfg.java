@@ -7,18 +7,20 @@ import java.util.Properties;
 
 public class Cfg {
 
-    public String nameLenght;
+    public String minNameLenght;
     public String oibLenght;
-    public String mobilePhoneLenght;
-    public String emailLenght;
-    String result = "";
+    public String minMobilePhoneLenght;
+    public String maxEmailLenght;
     InputStream inputStream;
 
     private static Cfg instance = null;
 
-    private Cfg(){}
+    private Cfg(){
+        getPropValues();
+    }
 
-    public String getPropValues() throws IOException {
+
+    private String getPropValues() {
 
         try {
             Properties prop = new Properties();
@@ -32,13 +34,11 @@ public class Cfg {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
 
-            nameLenght = prop.getProperty("app.student.name.min.length");
+            minNameLenght = prop.getProperty("app.student.name.min.length");
             oibLenght = prop.getProperty("app.student.oib.length");
-            mobilePhoneLenght = prop.getProperty("app.student.mobilePhone.min.length");
-            emailLenght = prop.getProperty("app.student.email.min.length");
+            minMobilePhoneLenght = prop.getProperty("app.student.mobilePhone.min.length");
+            maxEmailLenght = prop.getProperty("app.student.email.max.length");
 
-            result = "Validations :" + nameLenght + ", " + oibLenght + ", " + mobilePhoneLenght + ", " + emailLenght;
-            System.out.println(result);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -46,9 +46,13 @@ public class Cfg {
             e.printStackTrace();
         }
         finally {
-            inputStream.close();
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return result;
+        return null;
     }
 
     public static Cfg getInstance()
