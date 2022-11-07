@@ -17,6 +17,7 @@
         demo.app.rest.controller.HelloRestService
       </param-value>
     </init-param>
+
     <init-param>
       <param-name>jaxrs.providers</param-name>
       <param-value>
