@@ -44,7 +44,6 @@ public class StudentDao extends StudentModel {
 
         String query = "INSERT INTO Studenti VALUES (?, ?, ?, ?, ?, ?)";
 
-        //novi request njega return
 
         try {
             Connection connection = SqlConnection.getConnection();
