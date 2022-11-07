@@ -63,6 +63,7 @@ public class HelloRestService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response findStudentOib (@PathParam("oib") String oib) throws Exception {
+
         logger.info("In HelloRestService class, finding student by oib");
         return Response.status(200).entity(StudentMgmt.getStudentByOib(oib)).type(MediaType.APPLICATION_JSON).build();
     }
