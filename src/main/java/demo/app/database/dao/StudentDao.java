@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class StudentDao extends StudentModel {
 
-    //List of students
+    //List of
     public static ArrayList<StudentModel> getStudents() throws Exception{
 
         ArrayList<StudentModel> allStudents = new ArrayList<>();
-        String query = "SELECT * FROM Studenti";
+        String query = "SELECT * FROM Student";
 
         try {
             Connection connection = SqlConnection.getConnection();
@@ -42,7 +42,7 @@ public class StudentDao extends StudentModel {
     //Creating a new student
     public static void createNewStudent(StudentModel std) throws ClassNotFoundException {
 
-        String query = "INSERT INTO Studenti VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Student VALUES (?, ?, ?, ?, ?, ?)";
 
 
         try {
@@ -67,7 +67,7 @@ public class StudentDao extends StudentModel {
     //deleting a student by id
     public static boolean deleteStudent(int id) throws ClassNotFoundException, SQLException {
 
-        String sql = "delete from Studenti where id=" + id;
+        String sql = "delete from Student where id=" + id;
 
         try {
             Connection connection = SqlConnection.getConnection();
@@ -87,7 +87,7 @@ public class StudentDao extends StudentModel {
     public static StudentModel getStudentById(int id) throws ClassNotFoundException, SQLException {
 
         StudentModel sm = new StudentModel();
-        String sql = "select * from Studenti where id=" + id;
+        String sql = "select * from Student where id=" + id;
 
         try {
             Connection connection = SqlConnection.getConnection();
@@ -118,7 +118,7 @@ public class StudentDao extends StudentModel {
         //System.out.println("find by oib");
 
         StudentModel sm = new StudentModel();
-        String sql = "select * from Studenti where oib=" + oib;
+        String sql = "select * from Student where oib=" + oib;
 
         try {
             Connection connection = SqlConnection.getConnection();

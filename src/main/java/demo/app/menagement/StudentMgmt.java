@@ -4,7 +4,6 @@ import demo.app.database.dao.StudentDao;
 import demo.app.exceptions.UniqueOib;
 import demo.app.exceptions.WrongLengthException;
 import demo.app.properties.Cfg;
-import demo.app.properties.Logging;
 import demo.app.rest.model.StudentModel;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -15,7 +14,7 @@ public class StudentMgmt {
 
     private static final Logger logger = LogManager.getLogger(StudentMgmt.class);
 
-    static Cfg cfg = Cfg.getInstance();
+    private static final Cfg cfg = Cfg.getInstance();
 
     //list of students
     public static ArrayList<StudentModel> getStudents() throws Exception {
@@ -29,12 +28,12 @@ public class StudentMgmt {
 
         logger.info("U metodi create student");
 
-        if (sm.getName().length() <= Integer.parseInt(cfg.minNameLenght)){
+        if (sm.getName().length() <= Integer.parseInt(cfg.minNameLength)){
             logger.debug("Minimum name length is not acquired");
             throw new WrongLengthException();
         }
 
-        if (sm.getOib().length() != Integer.parseInt(cfg.oibLenght)){
+        if (sm.getOib().length() != Integer.parseInt(cfg.oibLength)){
             logger.debug("Oib is not unique");
             throw new UniqueOib();
         }

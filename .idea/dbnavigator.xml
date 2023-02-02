@@ -29,7 +29,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="d950f1c2-567d-4af3-93cb-2c980a2e4168">
-      <console name="Database" type="STANDARD" schema="main" session="Main"><![CDATA[alter table student modify column id int auto_increment primary key;]]></console>
+      <console name="Database" type="STANDARD" schema="main" session="Main"><![CDATA[select all DemoStudenti]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
