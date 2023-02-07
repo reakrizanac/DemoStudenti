@@ -1,6 +1,10 @@
 package demo.app.dto;
 
-public class StudentDto {
+import demo.app.rest.model.StudentModel;
+
+import javax.ws.rs.core.Response;
+
+public class StudentDto{
 
     private Integer id;
     private String name;
@@ -55,6 +59,19 @@ public class StudentDto {
 
     public void setMentorId(Integer mentorId) {
         this.mentorId = mentorId;
+    }
+
+    public static StudentModel ConvertToEntity(StudentDto studentDto){
+        StudentModel model = new StudentModel();
+
+        model.setId(studentDto.getId());
+        model.setName(studentDto.getName());
+        model.setOib(studentDto.getOib());
+        model.setMobilePhone(studentDto.getMobilePhone());
+        model.setEmail(studentDto.getEmail());
+        model.setMentorId(studentDto.getMentorId());
+
+        return model;
     }
 
     @Override

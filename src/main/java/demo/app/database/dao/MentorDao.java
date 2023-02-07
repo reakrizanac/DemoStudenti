@@ -1,6 +1,7 @@
 package demo.app.database.dao;
 
 import demo.app.database.SqlConnection;
+import demo.app.dto.MentorDto;
 import demo.app.rest.model.MentorModel;
 
 import java.sql.*;
@@ -10,9 +11,9 @@ public class MentorDao extends MentorModel {
 
 
     //List of mentors
-    public static ArrayList<MentorModel> getMentors() throws Exception{
+    public static ArrayList<MentorDto> getMentors() throws Exception{
 
-        ArrayList<MentorModel> allMentors = new ArrayList<>();
+        ArrayList<MentorDto> allMentors = new ArrayList<>();
         String query = "SELECT * FROM Mentor";
 
         try {
@@ -21,7 +22,7 @@ public class MentorDao extends MentorModel {
             ResultSet result = st.executeQuery(query);
 
             while (result.next()){
-                MentorModel mm = new MentorModel();
+                MentorDto mm = new MentorDto();
                 mm.setId(result.getInt(1));
                 mm.setName(result.getString(2));
                 mm.setOib(result.getString(3));
@@ -40,7 +41,7 @@ public class MentorDao extends MentorModel {
     }
 
     //Creating a new mentor
-    public static void createNewMentor(MentorModel mtd) throws ClassNotFoundException {
+    public static void createNewMentor(MentorDto mtd) throws ClassNotFoundException {
 
         String query = "INSERT INTO Mentor VALUES (?, ?, ?, ?, ?)";
 
@@ -82,9 +83,9 @@ public class MentorDao extends MentorModel {
     }
 
     //find a mentor by id
-    public static MentorModel getMentorById(int id) throws ClassNotFoundException {
+    public static MentorDto getMentorById(int id) throws ClassNotFoundException {
 
-        MentorModel mm = new MentorModel();
+        MentorDto mm = new MentorDto();
         String sql = "select * from Mentor where id=" + id;
 
         try {
@@ -111,11 +112,11 @@ public class MentorDao extends MentorModel {
     }
 
     //find a mentor by oib
-    public static MentorModel getMentorByOib(String oib) throws ClassNotFoundException {
+    public static MentorDto getMentorByOib(String oib) throws ClassNotFoundException {
 
         //System.out.println("find by oib");
 
-        MentorModel mm = new MentorModel();
+        MentorDto mm = new MentorDto();
         String sql = "select * from Mentor where oib=" + oib;
 
         try {

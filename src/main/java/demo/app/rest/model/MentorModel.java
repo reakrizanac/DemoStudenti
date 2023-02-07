@@ -1,6 +1,8 @@
 package demo.app.rest.model;
 
 
+import demo.app.dto.MentorDto;
+import demo.app.dto.StudentDto;
 
 public class MentorModel {
 
@@ -59,6 +61,19 @@ public class MentorModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public static MentorDto ConvertToDto(MentorModel mentorModel){
+        MentorDto dto = new MentorDto();
+
+        dto.setId(mentorModel.getId());
+        dto.setName(mentorModel.getName());
+        dto.setOib(mentorModel.getOib());
+        dto.setMobilePhone(mentorModel.getMobilePhone());
+        dto.setEmail(mentorModel.getEmail());
+
+        return dto;
     }
 
     @Override

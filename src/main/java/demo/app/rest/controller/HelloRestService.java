@@ -1,7 +1,12 @@
 package demo.app.rest.controller;
 
+import demo.app.dto.MentorDto;
+import demo.app.dto.StudentDto;
+import demo.app.exceptions.UniqueOib;
+import demo.app.exceptions.WrongLengthException;
 import demo.app.menagement.MentorMgmt;
 import demo.app.menagement.StudentMgmt;
+import demo.app.properties.Cfg;
 import demo.app.rest.model.MentorModel;
 import demo.app.rest.model.StudentModel;
 import org.apache.log4j.LogManager;
@@ -16,22 +21,32 @@ import java.util.ArrayList;
 public class HelloRestService {
 
     private static final Logger logger = LogManager.getLogger(StudentMgmt.class);
+    private static final Cfg cfg = Cfg.getInstance();
 
     //List of in Postman
     @GET
     @Path("/listStudents")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStudents() throws Exception {
-        ArrayList<StudentModel> studentList = StudentMgmt.getStudents();
+
+        /*
+        ArrayList<StudentModel> studentModelList = StudentMgmt.getStudents();
+        ArrayList<StudentDto> studentDtoList = new ArrayList<>();
+        for (StudentModel studentModel : studentModelList) {
+            studentDtoList.add(StudentModel.ConvertToDto(studentModel));
+        }
+         */
+
+        ArrayList<StudentDto> studentDtoList = StudentMgmt.getStudents();
         logger.info("In HelloRestService class, list of all students");
-        return Response.status(200).entity(studentList).type(MediaType.APPLICATION_JSON).build();
+        return Response.status(200).entity(studentDtoList).type(MediaType.APPLICATION_JSON).build();
     }
 
     @GET
     @Path("/listMentors")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMentors() throws Exception {
-        ArrayList<MentorModel> mentorList = MentorMgmt.getMentors();
+        ArrayList<MentorDto> mentorList = MentorMgmt.getMentors();
         logger.info("In HelloRestService class, list of all mentors");
         return Response.status(200).entity(mentorList).type(MediaType.APPLICATION_JSON).build();
     }
@@ -44,7 +59,26 @@ public class HelloRestService {
     public Response createStudent(StudentModel sm) throws Exception {
         logger.info("In HelloRestService class, creating a new student");
         //konvertirati u dto
-        return Response.status(200).entity(StudentMgmt.createStudent(sm)).type(MediaType.APPLICATION_JSON).build();
+        StudentDto studentDto = StudentModel.ConvertToDto(sm);
+
+        if (studentDto.getName().length() < Integer.parseInt(cfg.minNameLength)){
+            logger.debug("Minimum name length is not acquired");
+            throw new WrongLengthException();
+        }
+
+        if (studentDto.getOib().length() != Integer.parseInt(cfg.oibLength)){
+            logger.debug("Oib is not unique");
+            throw new UniqueOib();
+        }
+
+        try {
+            return Response.status(200).entity(StudentMgmt.createStudent(studentDto)).type(MediaType.APPLICATION_JSON).build();
+        }
+        catch (WrongLengthException e){
+            return Response.status(400).entity(e).type(MediaType.APPLICATION_JSON).build();
+        }
+
+
     }
 
     @POST
@@ -53,27 +87,48 @@ public class HelloRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createMentor(MentorModel mm) throws Exception {
         logger.info("In HelloRestService class, creating a new mentor");
-        return Response.status(200).entity(MentorMgmt.createMentor(mm)).type(MediaType.APPLICATION_JSON).build();
+
+        MentorDto mentorDto = MentorModel.ConvertToDto(mm);
+
+        if (mentorDto.getName().length() < Integer.parseInt(cfg.minNameLength)){
+            logger.debug("Minimum name length is not acquired");
+            throw new WrongLengthException();
+        }
+
+        if (mentorDto.getOib().length() != Integer.parseInt(cfg.oibLength)){
+            logger.debug("Oib is not unique");
+            throw new UniqueOib();
+        }
+
+        return Response.status(200).entity(MentorMgmt.createMentor(mentorDto)).type(MediaType.APPLICATION_JSON).build();
     }
 
 
     //deleting by id
-    @POST
+    @DELETE
     @Path("/deleteStudent/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteStudent (@PathParam("id") int id) throws Exception {
+        StudentDto studentDto = StudentMgmt.getStudentById(id);
         logger.info("In HelloRestService class, deleting student");
-        return Response.status(200).entity(StudentMgmt.deleteStudent(id)).type(MediaType.APPLICATION_JSON).build();
+        if (studentDto.getId()!=0){
+            return Response.status(200).entity(StudentMgmt.deleteStudent(id)).type(MediaType.APPLICATION_JSON).build();
+        }
+        return Response.status(200).entity(studentDto).type(MediaType.APPLICATION_JSON).build();
     }
 
-    @POST
+    @DELETE
     @Path("/deleteMentor/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteMentor (@PathParam("id") int id) throws Exception {
+        MentorDto mentorDto = MentorMgmt.getMentorById(id);
         logger.info("In HelloRestService class, deleting mentor");
-        return Response.status(200).entity(MentorMgmt.deleteMentor(id)).type(MediaType.APPLICATION_JSON).build();
+        if (mentorDto.getId()!=0){
+            return Response.status(200).entity(MentorMgmt.deleteMentor(id)).type(MediaType.APPLICATION_JSON).build();
+        }
+        return Response.status(200).entity(mentorDto).type(MediaType.APPLICATION_JSON).build();
     }
 
     //find  by id

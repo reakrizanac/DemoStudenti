@@ -1,6 +1,7 @@
 package demo.app.rest.model;
 
 
+import demo.app.dto.StudentDto;
 
 public class StudentModel {
 
@@ -70,6 +71,21 @@ public class StudentModel {
     public void setMentorId(Integer mentorId) {
         this.mentorId = mentorId;
     }
+
+    public static StudentDto ConvertToDto(StudentModel studentModel){
+        StudentDto dto = new StudentDto();
+
+        dto.setId(studentModel.getId());
+        dto.setName(studentModel.getName());
+        dto.setOib(studentModel.getOib());
+        dto.setMobilePhone(studentModel.getMobilePhone());
+        dto.setEmail(studentModel.getEmail());
+        dto.setMentorId(studentModel.getMentorId());
+
+        return dto;
+    }
+
+
 
     @Override
     public String toString(){

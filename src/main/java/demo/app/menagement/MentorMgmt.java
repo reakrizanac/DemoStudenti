@@ -1,6 +1,7 @@
 package demo.app.menagement;
 
 import demo.app.database.dao.MentorDao;
+import demo.app.dto.MentorDto;
 import demo.app.exceptions.UniqueOib;
 import demo.app.exceptions.WrongLengthException;
 import demo.app.properties.Cfg;
@@ -17,18 +18,18 @@ public class MentorMgmt {
     private static final Cfg cfg = Cfg.getInstance();
 
     //list of mentors
-    public static ArrayList<MentorModel> getMentors() throws Exception {
+    public static ArrayList<MentorDto> getMentors() throws Exception {
 
         return MentorDao.getMentors();
 
     }
 
     //create a mentor
-    public static MentorModel createMentor(MentorModel mm) throws Exception {
+    public static MentorDto createMentor(MentorDto mm) throws Exception {
 
         logger.info("U metodi create mentor");
 
-        if (mm.getName().length() <= Integer.parseInt(cfg.minNameLength)){
+        if (mm.getName().length() < Integer.parseInt(cfg.minNameLength)){
             logger.debug("Minimum name length is not acquired");
             throw new WrongLengthException();
         }
@@ -52,13 +53,13 @@ public class MentorMgmt {
     }
 
     //find by id
-    public static MentorModel getMentorById(int id) throws Exception {
+    public static MentorDto getMentorById(int id) throws Exception {
 
         return MentorDao.getMentorById(id);
     }
 
     //find by oib
-    public static MentorModel getMentorByOib(String oib) throws Exception {
+    public static MentorDto getMentorByOib(String oib) throws Exception {
 
         return MentorDao.getMentorByOib(oib);
     }

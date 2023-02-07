@@ -1,6 +1,7 @@
 package demo.app.menagement;
 
 import demo.app.database.dao.StudentDao;
+import demo.app.dto.StudentDto;
 import demo.app.exceptions.UniqueOib;
 import demo.app.exceptions.WrongLengthException;
 import demo.app.properties.Cfg;
@@ -17,18 +18,18 @@ public class StudentMgmt {
     private static final Cfg cfg = Cfg.getInstance();
 
     //list of students
-    public static ArrayList<StudentModel> getStudents() throws Exception {
+    public static ArrayList<StudentDto> getStudents() throws Exception {
 
         return StudentDao.getStudents();
 
     }
 
     //create a student
-    public static StudentModel createStudent(StudentModel sm) throws Exception {
+    public static StudentDto createStudent(StudentDto sm) throws Exception {
 
         logger.info("U metodi create student");
 
-        if (sm.getName().length() <= Integer.parseInt(cfg.minNameLength)){
+        if (sm.getName().length() < Integer.parseInt(cfg.minNameLength)){
             logger.debug("Minimum name length is not acquired");
             throw new WrongLengthException();
         }
@@ -54,13 +55,13 @@ public class StudentMgmt {
     }
 
     //find by id
-    public static StudentModel getStudentById(int id) throws Exception {
+    public static StudentDto getStudentById(int id) throws Exception {
 
         return StudentDao.getStudentById(id);
     }
 
     //find by oib
-    public static StudentModel getStudentByOib(String oib) throws Exception {
+    public static StudentDto getStudentByOib(String oib) throws Exception {
 
         return StudentDao.getStudentByOib(oib);
     }

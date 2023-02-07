@@ -1,6 +1,7 @@
 package demo.app.database.dao;
 
 import demo.app.database.SqlConnection;
+import demo.app.dto.StudentDto;
 import demo.app.rest.model.StudentModel;
 
 import java.sql.*;
@@ -9,9 +10,9 @@ import java.util.ArrayList;
 public class StudentDao extends StudentModel {
 
     //List of
-    public static ArrayList<StudentModel> getStudents() throws Exception{
+    public static ArrayList<StudentDto> getStudents() throws Exception{
 
-        ArrayList<StudentModel> allStudents = new ArrayList<>();
+        ArrayList<StudentDto> allStudents = new ArrayList<>();
         String query = "SELECT * FROM Student";
 
         try {
@@ -20,7 +21,7 @@ public class StudentDao extends StudentModel {
             ResultSet result = st.executeQuery(query);
 
             while (result.next()){
-                StudentModel sm = new StudentModel();
+                StudentDto sm = new StudentDto();
                 sm.setId(result.getInt(1));
                 sm.setName(result.getString(2));
                 sm.setOib(result.getString(3));
@@ -40,7 +41,7 @@ public class StudentDao extends StudentModel {
     }
 
     //Creating a new student
-    public static void createNewStudent(StudentModel std) throws ClassNotFoundException {
+    public static void createNewStudent(StudentDto std) throws ClassNotFoundException {
 
         String query = "INSERT INTO Student VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -65,28 +66,27 @@ public class StudentDao extends StudentModel {
     }
 
     //deleting a student by id
-    public static boolean deleteStudent(int id) throws ClassNotFoundException, SQLException {
+    public static void deleteStudent(int id) throws ClassNotFoundException{
 
-        String sql = "delete from Student where id=" + id;
+        String sql = "delete from Student where id=?";
 
         try {
             Connection connection = SqlConnection.getConnection();
-            Statement statement = connection.createStatement();
-            //umjesto query ide statement
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement st = connection.prepareStatement(sql);
 
+            st.setInt(1,id);
+            st.executeUpdate();
         }
-        catch (SQLException e) {
-            e.printStackTrace();
+        catch (Exception e) {
+            System.out.println(e);;
         }
 
-        return true;
     }
 
     //find a student by id
-    public static StudentModel getStudentById(int id) throws ClassNotFoundException, SQLException {
+    public static StudentDto getStudentById(int id) throws ClassNotFoundException{
 
-        StudentModel sm = new StudentModel();
+        StudentDto sm = new StudentDto();
         String sql = "select * from Student where id=" + id;
 
         try {
@@ -113,11 +113,11 @@ public class StudentDao extends StudentModel {
     }
 
     //find a student by oib
-    public static StudentModel getStudentByOib(String oib) throws ClassNotFoundException, SQLException {
+    public static StudentDto getStudentByOib(String oib) throws ClassNotFoundException{
 
         //System.out.println("find by oib");
 
-        StudentModel sm = new StudentModel();
+        StudentDto sm = new StudentDto();
         String sql = "select * from Student where oib=" + oib;
 
         try {
