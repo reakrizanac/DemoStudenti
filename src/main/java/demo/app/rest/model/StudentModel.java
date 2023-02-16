@@ -72,7 +72,7 @@ public class StudentModel {
         this.mentorId = mentorId;
     }
 
-    public static StudentDto ConvertToDto(StudentModel studentModel){
+    public static StudentDto convertToDto(StudentModel studentModel){
         StudentDto dto = new StudentDto();
 
         dto.setId(studentModel.getId());
@@ -83,6 +83,19 @@ public class StudentModel {
         dto.setMentorId(studentModel.getMentorId());
 
         return dto;
+    }
+//nazive malim početnim
+    public static StudentModel convertToEntity(StudentDto studentDto){
+        StudentModel model = new StudentModel();
+
+        model.setId(studentDto.getId());
+        model.setName(studentDto.getName());
+        model.setOib(studentDto.getOib());
+        model.setMobilePhone(studentDto.getMobilePhone());
+        model.setEmail(studentDto.getEmail());
+        model.setMentorId(studentDto.getMentorId());
+
+        return model;
     }
 
 

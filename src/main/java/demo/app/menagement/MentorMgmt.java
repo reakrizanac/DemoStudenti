@@ -2,9 +2,8 @@ package demo.app.menagement;
 
 import demo.app.database.dao.MentorDao;
 import demo.app.dto.MentorDto;
-import demo.app.exceptions.UniqueOib;
-import demo.app.exceptions.WrongLengthException;
 import demo.app.properties.Cfg;
+import demo.app.rest.model.ErrorModel;
 import demo.app.rest.model.MentorModel;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -25,23 +24,24 @@ public class MentorMgmt {
     }
 
     //create a mentor
-    public static MentorDto createMentor(MentorDto mm) throws Exception {
+    public static Object createMentor(MentorDto mm) throws Exception {
 
         logger.info("U metodi create mentor");
 
         if (mm.getName().length() < Integer.parseInt(cfg.minNameLength)){
             logger.debug("Minimum name length is not acquired");
-            throw new WrongLengthException();
+            return ErrorModel.ERR_MIN_LENGTH;
         }
 
         if (mm.getOib().length() != Integer.parseInt(cfg.oibLength)){
             logger.debug("Oib is not unique");
-            throw new UniqueOib();
+            return ErrorModel.ERR_MIN_LENGTH;
         }
 
         MentorDao.createNewMentor(mm);
 
-        return MentorDao.getMentorByOib(mm.getOib());
+        return MentorModel.convertToEntity(MentorDao.getMentorByOib(mm.getOib()));
+
     }
 
     //delete by id

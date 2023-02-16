@@ -115,7 +115,6 @@ public class StudentDao extends StudentModel {
     //find a student by oib
     public static StudentDto getStudentByOib(String oib) throws ClassNotFoundException{
 
-        //System.out.println("find by oib");
 
         StudentDto sm = new StudentDto();
         String sql = "select * from Student where oib=" + oib;

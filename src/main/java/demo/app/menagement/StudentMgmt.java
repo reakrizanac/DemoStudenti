@@ -5,6 +5,7 @@ import demo.app.dto.StudentDto;
 import demo.app.exceptions.UniqueOib;
 import demo.app.exceptions.WrongLengthException;
 import demo.app.properties.Cfg;
+import demo.app.rest.model.ErrorModel;
 import demo.app.rest.model.StudentModel;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -25,25 +26,23 @@ public class StudentMgmt {
     }
 
     //create a student
-    public static StudentDto createStudent(StudentDto sm) throws Exception {
+    public static StudentModel createStudent(StudentDto sm) throws Exception {
 
         logger.info("U metodi create student");
 
         if (sm.getName().length() < Integer.parseInt(cfg.minNameLength)){
             logger.debug("Minimum name length is not acquired");
-            throw new WrongLengthException();
+            return ErrorModel.ERR_MIN_LENGTH;
         }
 
         if (sm.getOib().length() != Integer.parseInt(cfg.oibLength)){
-            logger.debug("Oib is not unique");
-            throw new UniqueOib();
+            logger.debug("Oib is not right");
+            return ErrorModel.ERR_OIB_LENGTH;
         }
 
-
-        
         StudentDao.createNewStudent(sm);
 
-        return StudentDao.getStudentByOib(sm.getOib());
+        return StudentModel.convertToEntity(StudentDao.getStudentByOib(sm.getOib()));
     }
 
     //delete by id

@@ -1,6 +1,8 @@
 package demo.app.dto;
 
-public class MentorDto {
+import demo.app.rest.model.MentorModel;
+
+public class MentorDto{
 
     private Integer id;
     private String name;

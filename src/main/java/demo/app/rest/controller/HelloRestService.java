@@ -7,6 +7,7 @@ import demo.app.exceptions.WrongLengthException;
 import demo.app.menagement.MentorMgmt;
 import demo.app.menagement.StudentMgmt;
 import demo.app.properties.Cfg;
+import demo.app.rest.model.ErrorModel;
 import demo.app.rest.model.MentorModel;
 import demo.app.rest.model.StudentModel;
 import org.apache.log4j.LogManager;
@@ -29,14 +30,6 @@ public class HelloRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStudents() throws Exception {
 
-        /*
-        ArrayList<StudentModel> studentModelList = StudentMgmt.getStudents();
-        ArrayList<StudentDto> studentDtoList = new ArrayList<>();
-        for (StudentModel studentModel : studentModelList) {
-            studentDtoList.add(StudentModel.ConvertToDto(studentModel));
-        }
-         */
-
         ArrayList<StudentDto> studentDtoList = StudentMgmt.getStudents();
         logger.info("In HelloRestService class, list of all students");
         return Response.status(200).entity(studentDtoList).type(MediaType.APPLICATION_JSON).build();
@@ -58,26 +51,14 @@ public class HelloRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createStudent(StudentModel sm) throws Exception {
         logger.info("In HelloRestService class, creating a new student");
-        //konvertirati u dto
-        StudentDto studentDto = StudentModel.ConvertToDto(sm);
-
-        if (studentDto.getName().length() < Integer.parseInt(cfg.minNameLength)){
-            logger.debug("Minimum name length is not acquired");
-            throw new WrongLengthException();
-        }
-
-        if (studentDto.getOib().length() != Integer.parseInt(cfg.oibLength)){
-            logger.debug("Oib is not unique");
-            throw new UniqueOib();
-        }
+        StudentDto studentDto = StudentModel.convertToDto(sm);
 
         try {
             return Response.status(200).entity(StudentMgmt.createStudent(studentDto)).type(MediaType.APPLICATION_JSON).build();
         }
-        catch (WrongLengthException e){
-            return Response.status(400).entity(e).type(MediaType.APPLICATION_JSON).build();
+        catch (Exception e){
+            return Response.status(400).entity(ErrorModel.ERR_001).type(MediaType.APPLICATION_JSON).build();
         }
-
 
     }
 

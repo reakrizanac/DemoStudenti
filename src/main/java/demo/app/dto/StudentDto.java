@@ -61,18 +61,7 @@ public class StudentDto{
         this.mentorId = mentorId;
     }
 
-    public static StudentModel ConvertToEntity(StudentDto studentDto){
-        StudentModel model = new StudentModel();
 
-        model.setId(studentDto.getId());
-        model.setName(studentDto.getName());
-        model.setOib(studentDto.getOib());
-        model.setMobilePhone(studentDto.getMobilePhone());
-        model.setEmail(studentDto.getEmail());
-        model.setMentorId(studentDto.getMentorId());
-
-        return model;
-    }
 
     @Override
     public String toString() {

@@ -76,6 +76,19 @@ public class MentorModel {
         return dto;
     }
 
+
+    public static MentorModel convertToEntity(MentorDto mentorDto){
+        MentorModel model = new MentorModel();
+
+        model.setId(mentorDto.getId());
+        model.setName(mentorDto.getName());
+        model.setOib(mentorDto.getOib());
+        model.setMobilePhone(mentorDto.getMobilePhone());
+        model.setEmail(mentorDto.getEmail());
+
+        return model;
+    }
+
     @Override
     public String toString(){
         return "MentorModel{" +
